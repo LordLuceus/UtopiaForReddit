@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "UtopiaForReddit"
+version = "1.0.0"
+description = "An Accessible Reddit client for WIndows and MacOS"
+authors = ["Nicklas Tegner <nicklas@accessiware.com>"]
+
+[tool.poetry.dependencies]
+python = "^37"
+wxpython = "4.0.3"
+praw = "^6.5.1"
+appdirs = "^1.4.3"
+logzero = "^1.5.0"
+pycryptodomex = "^3.9.6"
+requests_cache = "^0.5.2"
+cython = "^0.29.15"
+justupdate = "^1.3.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

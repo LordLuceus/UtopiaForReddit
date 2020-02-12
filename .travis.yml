@@ -1,0 +1,65 @@
+if: tag =~ ^(\d+\.)?(\d+\.)?(\*|\d+)?(\*|\w+)?(\*|\d+)$
+git:
+  clone: false
+language: python
+matrix:
+  include:
+  - name: Python 3.7.3 on macOS 10.14
+    os: osx
+    osx_image: xcode10.2
+    language: shell
+    before_install:
+    - python3 --version
+    - python3 -m pip install -U pip wheel setuptools
+    - python3 -m pip install -U poetry
+    install:
+    - git clone git@github.com:${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
+    - cd $TRAVIS_REPO_SLUG
+    - git checkout -qf $TRAVIS_COMMIT
+    - python3 -m poetry update
+    - python3 -m poetry run python version_writer.py $TRAVIS_TAG
+    - cd src
+    - python3 -m poetry run python cython-compiler.py -c -e VisCon.py
+    - cd ../
+    script:
+    - python3 -m poetry run justupdate -d build specs/mac.spec
+    - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
+    - python3 -m poetry run justupdate -d upload -s scp
+    - git config --global user.name "NicklasMCHD"
+    - git config --global user.email NicklasMCHD@live.dk
+    - git add .
+    - git commit -m "Build version $TRAVIS_TAG on mac."
+    - git pull origin master
+    - git push origin HEAD:master
+    - exit 0
+  - name: Python 3.7.3 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install nsis --no-progress -r --x86
+    - export PATH=$PATH:";C:\Program Files (x86)\NSIS"
+    - choco install python --no-progress -r --x86 --version 3.7.3
+    - python --version
+    - python -m pip install --upgrade pip
+    - pip3 install -U pip wheel setuptools
+    - pip3 install -U poetry
+    install:
+    - git clone git@github.com:${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
+    - cd $TRAVIS_REPO_SLUG
+    - git checkout -qf $TRAVIS_COMMIT
+    - poetry update
+    - poetry run python version_writer.py $TRAVIS_TAG
+    - cd src
+    - poetry run python cython-compiler.py -c -e VisCon.py
+    - cd ../
+    script:
+    - poetry run justupdate -d build specs/win-release.spec
+    - poetry run justupdate -d commit $TRAVIS_TAG
+    - poetry run justupdate -d upload -s scp
+    - git config --global user.name "NicklasMCHD"
+    - git config --global user.email NicklasMCHD@live.dk
+    - git add .
+    - git commit -m "Build version $TRAVIS_TAG on windows."
+    - git pull origin master
+    - git push origin HEAD:master
+    env: PATH=/c/Python37:/c/Python37/Scripts:$PATH

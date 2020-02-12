@@ -1,0 +1,58 @@
+from logzero import logger
+import wx
+import wx.adv
+
+from core import variables
+
+class Preferences(wx.adv.PropertySheetDialog):
+	def __init__(self, parent, title):
+		super().__init__()
+		self.parent = parent
+		self.title = title
+
+	def setup(self):
+		self.SetSheetStyle(wx.adv.PROPSHEET_CHOICEBOOK)
+		self.Create(self.parent, wx.ID_ANY, self.title)
+		return self.GetBookCtrl()
+
+	def finalize(self):
+		self.CreateButtons()
+		self.LayoutDialog()
+
+class GeneralPreferencesPage(wx.Panel):
+	def __init__(self, parent, config):
+		wx.Panel.__init__(self, parent)
+		sizer = wx.BoxSizer(wx.VERTICAL)
+		
+		self.check_for_updates = wx.CheckBox(self, wx.ID_ANY, "Automatically check for updates on startup.")
+		self.check_for_updates.SetValue(config.get("auto_check_for_updates"))
+		sizer.Add(self.check_for_updates, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
+		
+		self.SetSizer(sizer)
+
+	def save(self, config):
+		config.set("auto_check_for_updates", self.check_for_updates.IsChecked())
+
+def open_preferences():
+	prefFrame = Preferences(wx.GetTopLevelWindows()[0], title="Preferences")
+	base = prefFrame.setup()
+	
+	general = GeneralPreferencesPage(base, variables.config)
+	base.AddPage(general, "General", True)
+	
+	prefFrame.finalize()
+	prefFrame.Centre()
+	result = prefFrame.ShowModal ()
+	if result == wx.ID_CANCEL:
+		logger.debug("Not saving preferences.")
+		return
+	else:
+		logging.info("Saving preferences")
+		count = 0
+		while count < base.GetPageCount():
+			page = base.GetPage(count)
+			logger.debug("Saving preferences on " + page.__class__.__name__)
+			page.save(variables.config)
+			count += 1
+		variables.config.save()
+		logger.info("Preferences saved")
