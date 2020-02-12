@@ -8,6 +8,7 @@ from core import variables
 
 from ui.account_manager import *
 from ui.main_ui import *
+from ui import updater
 
 def _real_main():
 	utils.insure_filesystem()
@@ -28,5 +29,7 @@ def _real_main():
 		main_ui = MainWindow()
 		app.SetTopWindow(main_ui)
 		main_ui.Show()
+	logger.info("Checking for updates.")
+	updater.check_for_updates()
 	logger.info("Entering main loop")
 	app.MainLoop()
