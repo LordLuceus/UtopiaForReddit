@@ -2,9 +2,6 @@ env:
   matrix:
     secure: NjunN11Y948lOp7KGWJjXlhUdgBYbxnoABdzs1n0LUEfCrf1F+wxMJAwWTuuC/2vSX8KSTOP3TFVj0Lq1w43nbFFrEGV5XM0dzSUdB5rSImSaCrRrMZQpOCnr1t9CPg+sd+U7XwD7ji2MOreyZtUnYepu1AODcd0MdSnGBu0GlzN/JEkD+LihvIarufxOh/xKGx8l05lkknU2OrdCuXBncsGAJRta1WLETkgJW7vWv81nBW7f0XzG3GKBVSQQy8Ova8K7oc5b5+9rhSsOkYbmU3CF77QfkSGz6KdOSAGeiX3cufbplu3pdC3txIx6Htjzu13jAawQLMkP9IILhOQLUrbdG1l/1ib/fkLtJbgj3cUxiLgJg8e0cbz7wlD/KK6hMjMS7gCklrQAC67zIm/wL4KNNc1NLWY8InhXo5KSk30zYy7hNN2ToDBCQH75Ts+NmbRPvgR0mtLEAaAIEe5NBJTPgg6GuJeL74htgSJx8XA6pYTo8YFpC5Nt7ZEvM9nmGMfcV3fh7P805rjRgLhtYp4PkkIl+ySltDtfwNqKYJdLxR9OghgEpV3RrcGf81MIjUGqJaoF09ARtIEBhdDv5L30/x6vHnUIug16pef0zv/NtMUmzxwvD2sbPxRJsP1GPgm8fRivguKgKmK8flPoilKF1hDG3nbkGra1djBL4w=
 if: tag =~ ^(\d+\.)?(\d+\.)?(\*|\d+)?(\*|\w+)?(\*|\d+)$
-addons:
-  ssh_known_hosts:
-  - github.com
 git:
   clone: false
 language: python
@@ -19,6 +16,11 @@ matrix:
     - python3 -m pip install -U pip wheel setuptools
     - python3 -m pip install -U poetry
     install:
+    - openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in travis_key.enc -out travis_key
+    - echo "Host github.com" > ~/.ssh/config
+    - echo "  IdentityFile  $(pwd)/travis_key" >> ~/.ssh/config
+    - chmod 400 travis_key
+    - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
     - git clone git@github.com:${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
@@ -50,6 +52,11 @@ matrix:
     - pip3 install -U pip wheel setuptools
     - pip3 install -U poetry
     install:
+    - openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in travis_key.enc -out travis_key
+    - echo "Host github.com" > ~/.ssh/config
+    - echo "  IdentityFile  $(pwd)/travis_key" >> ~/.ssh/config
+    - chmod 400 travis_key
+    - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
     - git clone git@github.com:${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
