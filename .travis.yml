@@ -1,6 +1,3 @@
-env:
-  matrix:
-    secure: NjunN11Y948lOp7KGWJjXlhUdgBYbxnoABdzs1n0LUEfCrf1F+wxMJAwWTuuC/2vSX8KSTOP3TFVj0Lq1w43nbFFrEGV5XM0dzSUdB5rSImSaCrRrMZQpOCnr1t9CPg+sd+U7XwD7ji2MOreyZtUnYepu1AODcd0MdSnGBu0GlzN/JEkD+LihvIarufxOh/xKGx8l05lkknU2OrdCuXBncsGAJRta1WLETkgJW7vWv81nBW7f0XzG3GKBVSQQy8Ova8K7oc5b5+9rhSsOkYbmU3CF77QfkSGz6KdOSAGeiX3cufbplu3pdC3txIx6Htjzu13jAawQLMkP9IILhOQLUrbdG1l/1ib/fkLtJbgj3cUxiLgJg8e0cbz7wlD/KK6hMjMS7gCklrQAC67zIm/wL4KNNc1NLWY8InhXo5KSk30zYy7hNN2ToDBCQH75Ts+NmbRPvgR0mtLEAaAIEe5NBJTPgg6GuJeL74htgSJx8XA6pYTo8YFpC5Nt7ZEvM9nmGMfcV3fh7P805rjRgLhtYp4PkkIl+ySltDtfwNqKYJdLxR9OghgEpV3RrcGf81MIjUGqJaoF09ARtIEBhdDv5L30/x6vHnUIug16pef0zv/NtMUmzxwvD2sbPxRJsP1GPgm8fRivguKgKmK8flPoilKF1hDG3nbkGra1djBL4w=
 if: tag =~ ^(\d+\.)?(\d+\.)?(\*|\d+)?(\*|\w+)?(\*|\d+)$
 git:
   clone: false
