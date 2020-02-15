@@ -1,3 +1,74 @@
 env:
   matrix:
     secure: NjunN11Y948lOp7KGWJjXlhUdgBYbxnoABdzs1n0LUEfCrf1F+wxMJAwWTuuC/2vSX8KSTOP3TFVj0Lq1w43nbFFrEGV5XM0dzSUdB5rSImSaCrRrMZQpOCnr1t9CPg+sd+U7XwD7ji2MOreyZtUnYepu1AODcd0MdSnGBu0GlzN/JEkD+LihvIarufxOh/xKGx8l05lkknU2OrdCuXBncsGAJRta1WLETkgJW7vWv81nBW7f0XzG3GKBVSQQy8Ova8K7oc5b5+9rhSsOkYbmU3CF77QfkSGz6KdOSAGeiX3cufbplu3pdC3txIx6Htjzu13jAawQLMkP9IILhOQLUrbdG1l/1ib/fkLtJbgj3cUxiLgJg8e0cbz7wlD/KK6hMjMS7gCklrQAC67zIm/wL4KNNc1NLWY8InhXo5KSk30zYy7hNN2ToDBCQH75Ts+NmbRPvgR0mtLEAaAIEe5NBJTPgg6GuJeL74htgSJx8XA6pYTo8YFpC5Nt7ZEvM9nmGMfcV3fh7P805rjRgLhtYp4PkkIl+ySltDtfwNqKYJdLxR9OghgEpV3RrcGf81MIjUGqJaoF09ARtIEBhdDv5L30/x6vHnUIug16pef0zv/NtMUmzxwvD2sbPxRJsP1GPgm8fRivguKgKmK8flPoilKF1hDG3nbkGra1djBL4w=
+if: tag =~ ^(\d+\.)?(\d+\.)?(\*|\d+)?(\*|\w+)?(\*|\d+)$
+addons:
+  ssh_known_hosts:
+  - github.com
+git:
+  clone: false
+language: python
+matrix:
+  include:
+  - name: Python 3.7.3 on macOS 10.14
+    os: osx
+    osx_image: xcode10.2
+    language: shell
+    before_install:
+    - python3 --version
+    - python3 -m pip install -U pip wheel setuptools
+    - python3 -m pip install -U poetry
+    install:
+    - git clone git@github.com:${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
+    - cd $TRAVIS_REPO_SLUG
+    - git checkout -qf $TRAVIS_COMMIT
+    - python3 -m poetry update
+    - python3 -m poetry run python version_writer.py $TRAVIS_TAG
+    - cd src
+    - python3 -m poetry run python cython-compiler.py -c -e VisCon.py
+    - cd ../
+    script:
+    - python3 -m poetry run justupdate -d build specs/mac.spec
+    - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
+    - python3 -m poetry run justupdate -d upload -s scp
+    - git config --global user.name "TravisBuilder"
+    - git config --global user.email "travis@accessiware.com"
+    - git add ju-repo/archive/*
+    - git commit -m "Build version $TRAVIS_TAG on mac."
+    - git pull origin master
+    - git push origin HEAD:master
+    - exit 0
+  - name: Python 3.7.3 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install nsis --no-progress -r --x86
+    - export PATH=$PATH:";C:\Program Files (x86)\NSIS"
+    - choco install python --no-progress -r --x86 --version 3.7.3
+    - python --version
+    - python -m pip install --upgrade pip
+    - pip3 install -U pip wheel setuptools
+    - pip3 install -U poetry
+    install:
+    - git clone git@github.com:${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
+    - cd $TRAVIS_REPO_SLUG
+    - git checkout -qf $TRAVIS_COMMIT
+    - poetry update
+    - poetry run python version_writer.py $TRAVIS_TAG
+    - cd src
+    - poetry run python cython-compiler.py -c -e VisCon.py
+    - cd ../
+    script:
+    - poetry run justupdate -d build specs/win-release.spec
+    - poetry run justupdate -d commit $TRAVIS_TAG
+    - poetry run justupdate -d upload -s scp
+    - git config --global user.name "TravisBuilder"
+    - git config --global user.email "travis@accessiware.com"
+    - rm src/__required_imports__.py
+    - git add src/core/*
+    - git add ju-repo/archive/*
+    - git commit -m "Build version $TRAVIS_TAG on windows."
+    - git checkout .
+    - git pull origin master
+    - git push origin HEAD:master
+    env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
