@@ -5,7 +5,7 @@ description = "An Accessible Reddit client for WIndows and MacOS"
 authors = ["Nicklas Tegner <nicklas@accessiware.com>"]
 
 [tool.poetry.dependencies]
-python = "^37"
+python = "^3.6"
 wxpython = "4.0.3"
 praw = "^6.5.1"
 appdirs = "^1.4.3"
