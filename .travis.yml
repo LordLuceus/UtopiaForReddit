@@ -18,7 +18,7 @@ matrix:
     install:
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
-    - git clone https://NicklasTegner:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+    - git clone https://NicklasTegner:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
     - python3 -m poetry update
@@ -49,7 +49,7 @@ matrix:
     install:
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
-    - git clone https://NicklasTegner:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+    - git clone https://NicklasTegner:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
     - poetry update
