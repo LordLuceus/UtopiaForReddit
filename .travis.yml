@@ -16,7 +16,6 @@ matrix:
     - python3 -m pip install -U pip wheel setuptools
     - python3 -m pip install -U poetry
     install:
-    - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
     - git clone https://github.com/${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
@@ -34,9 +33,7 @@ matrix:
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
     - git pull origin master
-    - git remote remove origin
-    - git remote add origin git@github.com:${TRAVIS_REPO_SLUG}.git
-    - git push origin HEAD:master
+    - git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master
     - exit 0
   - name: Python 3.7.3 on Windows
     os: windows
@@ -50,7 +47,6 @@ matrix:
     - pip3 install -U pip wheel setuptools
     - pip3 install -U poetry
     install:
-    - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
     - git clone https://github.com/${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
@@ -71,7 +67,8 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     - git checkout .
     - git pull origin master
-    - git remote remove origin
-    - git remote add origin git@github.com:${TRAVIS_REPO_SLUG}.git
-    - git push origin HEAD:master
+    - git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+env:
+  global:
+    secure: nUnRowDpn707vgBQk9eNMmh6bOW8021pyHKaDQ6NZDrBcyk9L+qChwE0hUIFmMqvSlxUs6KrO03lIitEAou9bphxJddB/nh/z0tCxFF67V5w16CGvMIThZ02SAMUFZsUj3+/UXARK2NxxanKJBveDuqR/ZesHVVaQRm+VPrX5NYTFhbuidsaLhZNX74WNUKQe1+HjeiRgU+znW8Z3pwLkWq05bfNtjexTZi2m9ztCLOA36RRzr5f/VKv9GIPPJiFB/NiEv64SQDE7ANXhVS0nx6/qwfsACxXo8mdG4q7Smzl99cb20PvIUW+WpNJOefh+8+j0gPwAaY1NkqKp1M1l9aQCiJcZbEdxMyDTjMaOVCyq7gN0LJf4k9IF6HAJLC8v3DtZP9aLSVi8SDmKVPfvSqFofw5CtQLDfiup4PDaZRUEJwrDuopy+QaAR/RVJ67lbeE1rwpUo1DtjjdQCRvzrdbWAZ85eLIOnC2p2cTXCeiumvqwjqMM0E/YskgYK4E15KHnLYohtNv8ktTIkijkd26NXUQVN0JlSxnEGGRFnSuLmkHCrkw1Q8FYBbdesVjslKlEoELmjDprzSAlgM34YpNz5C1BByWsWa6OO1+yGeCO1owAH5r6rU2OdTt/ECTFsSyZc/aqeJlsBM/QRchidJ3lozHO5b+ETEpEKYoyXE=
