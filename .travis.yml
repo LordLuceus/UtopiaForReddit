@@ -18,7 +18,7 @@ matrix:
     install:
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
-    - git clone https://github.com/${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
+    - git clone https://NicklasTegner:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git > /dev/null
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
     - python3 -m poetry update
@@ -33,7 +33,7 @@ matrix:
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
     - git pull origin master
-    - git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master
+    - git push origin HEAD:master
     - exit 0
   - name: Python 3.7.3 on Windows
     os: windows
@@ -49,7 +49,7 @@ matrix:
     install:
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
-    - git clone https://github.com/${TRAVIS_REPO_SLUG}.git $TRAVIS_REPO_SLUG
+    - git clone https://NicklasTegner:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git /dev/null
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
     - poetry update
@@ -67,8 +67,5 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     - git checkout .
     - git pull origin master
-    - git push https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master
+    - git push origin master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-env:
-  global:
-    secure: nUnRowDpn707vgBQk9eNMmh6bOW8021pyHKaDQ6NZDrBcyk9L+qChwE0hUIFmMqvSlxUs6KrO03lIitEAou9bphxJddB/nh/z0tCxFF67V5w16CGvMIThZ02SAMUFZsUj3+/UXARK2NxxanKJBveDuqR/ZesHVVaQRm+VPrX5NYTFhbuidsaLhZNX74WNUKQe1+HjeiRgU+znW8Z3pwLkWq05bfNtjexTZi2m9ztCLOA36RRzr5f/VKv9GIPPJiFB/NiEv64SQDE7ANXhVS0nx6/qwfsACxXo8mdG4q7Smzl99cb20PvIUW+WpNJOefh+8+j0gPwAaY1NkqKp1M1l9aQCiJcZbEdxMyDTjMaOVCyq7gN0LJf4k9IF6HAJLC8v3DtZP9aLSVi8SDmKVPfvSqFofw5CtQLDfiup4PDaZRUEJwrDuopy+QaAR/RVJ67lbeE1rwpUo1DtjjdQCRvzrdbWAZ85eLIOnC2p2cTXCeiumvqwjqMM0E/YskgYK4E15KHnLYohtNv8ktTIkijkd26NXUQVN0JlSxnEGGRFnSuLmkHCrkw1Q8FYBbdesVjslKlEoELmjDprzSAlgM34YpNz5C1BByWsWa6OO1+yGeCO1owAH5r6rU2OdTt/ECTFsSyZc/aqeJlsBM/QRchidJ3lozHO5b+ETEpEKYoyXE=
