@@ -13,8 +13,6 @@ matrix:
     - python3 -m pip install -U pip wheel setuptools
     - python3 -m pip install -U poetry
     install:
-    - git config --global user.name "NicklasTegner"
-    - git config --global user.email "NicklasMCHD@live.dk"
     - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
     - git clone git@github.com:${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
@@ -28,6 +26,8 @@ matrix:
     - python3 -m poetry run justupdate -d build specs/mac.spec
     - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
     - python3 -m poetry run justupdate -d upload -s gh-archive
+    - git config --global user.name "NicklasTegner"
+    - git config --global user.email "NicklasMCHD@live.dk"
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
     - git pull origin master
@@ -49,8 +49,6 @@ matrix:
     - pip3 install -U pip wheel setuptools
     - pip3 install -U poetry
     install:
-    - git config --global user.name "NicklasTegner"
-    - git config --global user.email "NicklasMCHD@live.dk"
     - echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
     - git clone git@github.com:${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
@@ -65,6 +63,8 @@ matrix:
     - poetry run justupdate -d commit $TRAVIS_TAG
     - poetry run justupdate -d upload -s gh-archive
     - rm src/__required_imports__.py
+    - git config --global user.name "NicklasTegner"
+    - git config --global user.email "NicklasMCHD@live.dk"
     - git add src/core/*
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on windows."
