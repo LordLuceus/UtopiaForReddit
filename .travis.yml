@@ -1,7 +1,4 @@
 if: tag =~ ^(\d+\.)?(\d+\.)?(\*|\d+)?(\*|\w+)?(\*|\d+)$
-addons:
-  ssh_known_hosts:
-  - github.com
 git:
   clone: false
 language: python
@@ -80,6 +77,6 @@ matrix:
     - git push origin master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 env:
-  matrix:
+  global:
   - secure: drC/3F3at0QHChFabz+wn/ykFPHf2Yq6v2tcKoE3w2ncf2WYWpIrB/zhlA9Shu7c4TS6T5BLDPrzRi1iAbbsk5Ml2fwtlBN1YF7bmvY6/BTAJJLYu+ndDaQlmpjDj7C/8ooB/4RZTXTByM9ocsMG7bEiAf+JXBSAx4RbCq5uGhq83EWh0dz+JpPYhBr+N5rUr6g1MHT9u52w9dtGyfVNjKf8tar8mxzLPhd1usbN0yAdYmhyVxgUx9UbmOLPsXtLFULi8HMQI1zGbRWiI/k2NNEn8XVnPAoEhfEK6DcGPh8VU8g88vzoqTLaqGM5Y+I73TvBDTpNn+ZZMHtwndYlXvJxVxq8rpkzE/dt+gX+nOXE/aQ12+64H9QBtmuhgy9rVD+HhLlnK8DIBJZOuMaGHa0Z9bgEZAByX2Nnq8Zbm5fan8jtPedwMiGRbH8LN1iZSlpUCI45ovt6wifDRdDaa88YjnvqM3JrxdTwtgLZ0Aj3XxeYGXKFHf61ODawDMCE2Ih7utEcy/PiPDfyIy8Bx+YH3s52sys1GKTzGSRUTAg87b/ds52tU0iY7XcU8AMRfS4e64pywLgKohYC72BsqVfpkYbQ8dQe9LD5NuaJYmrDW+C0wMN0zBJUk/VXmSGUOKa00rOJu7RBU3W/tzKMr1gHyt7FZjiE7TmGrhBJ5no=
   - secure: I+jyy2QvP7GWd23seFjxlRMEJenC8j3Pe3cYG9BNebTJtR8ZxmIvKWCdAY0Iy9dGfWEPtFzI7T9rCrEYDK5Kyx0AOzUK37xiM15m6SQktSVKAKJwQ7mgS5lRotmv8ptjch0jaqgnlOIcVZhLLJhIOSfEUmKEllLOZk+ul5sRjpltBbWZ9KXMKSV/5o+q4Ai7p287OjUZI8d9JDHxQcesaEbImAAxv1pU/YQy8K9ELuqaC10TlWUBW2inyetAoYM/Rvs023lgaLNjn9i1sRXqWjwrbrg1iuEj0AxZQuMTvl4D2jfq+LnQCksfTcByXiSQulPGB6JMSvIpAWlX/mB+nMmE8u6y2Knyi8tE3WI1ix/ffJ3GBTJqZpd+2ld0wnN+sd69ag2AgmoFixuBL3n/zz79maP6KtlBnC0qfH/LAovZks/ReiM1nbIVw1AjIJyODubxgF7stKwLT6LomiD6amnK7e4zjPLA0+sSTpsuV8bH7VmCe5Ow2b2HchImNe9w449uRqJrMz/efPMMMf0PXJmQ0zEApbC+ejegXHI18YCyrMuTZvjubqgNgGOaOrYkMv75JI1p3ewDzaQUqSHz3dpNqh5HnkO7+Njcl/ttrKTvthILGFDcLBcyYoRoY8xuPKEv1HwRSKsdxdlx6shPSl11IbsHh6WlWkoQmB0mKB0=
