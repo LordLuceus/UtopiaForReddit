@@ -28,14 +28,13 @@ matrix:
     - python3 -m poetry run justupdate -d build specs/mac.spec
     - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
     - python3 -m poetry run justupdate -d upload -s gh-archive
-    - git config credential.helper "store --file=../credentials"
-    - echo "https://${GITHUB_TOKEN}:@github.com" > ../credentials
+    - git config credential.helper "store"
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
     - git pull origin master
-    - git push origin master
+    - git push "https://${GITHUB_TOKEN}@${TRAVIS_REPO_SLUG}" master
     - exit 0
   - name: Python 3.7.3 on Windows
     os: windows
@@ -61,8 +60,7 @@ matrix:
     - poetry run justupdate -d build specs/win-release.spec
     - poetry run justupdate -d commit $TRAVIS_TAG
     - poetry run justupdate -d upload -s gh-archive
-    - git config credential.helper "store --file=../credentials"
-    - echo "https://${GITHUB_TOKEN}:@github.com" > ../credentials
+    - git config credential.helper "store"
     - git config --global user.name "NicklasTegner"
     - git config --global user.email "NicklasMCHD@live.dk"
     - git add src/src/__required_imports__.py
@@ -71,7 +69,7 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     - git checkout .
     - git pull origin master
-    - git push origin master
+    - git push "https://${GITHUB_TOKEN}@${TRAVIS_REPO_SLUG}" master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 env:
   global:
