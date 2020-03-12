@@ -15,7 +15,7 @@ matrix:
     - python3 -m pip install -U poetry
     install:
     - git checkout -qf $TRAVIS_COMMIT
-    - python3 -m poetry update
+    - python3 -m poetry install
     - python3 -m poetry run python version_writer.py $TRAVIS_TAG
     - cd src
     - python3 -m poetry run python cython-compiler.py -c -e UtopiaForReddit.py
@@ -27,6 +27,8 @@ matrix:
     deploy:
       provider: pages
       github_token: $GITHUB_TOKEN
+      name: NicklasTegner
+      email: NicklasMCHD@live.dk
       skip_cleanup: true
       keep_history: true
       allow_empty_commit: false
@@ -45,7 +47,7 @@ matrix:
     - pip3 install -U pip wheel setuptools
     - pip3 install -U poetry
     install:
-    - poetry update
+    - poetry install
     - poetry run python version_writer.py $TRAVIS_TAG
     - cd src
     - poetry run python cython-compiler.py -c -e UtopiaForReddit.py
@@ -54,13 +56,11 @@ matrix:
     - poetry run justupdate -d build specs/win-release.spec
     - poetry run justupdate -d commit $TRAVIS_TAG
     - poetry run justupdate -d upload -s gh-archive
-    - git add src/src/__required_imports__.py
-    - git add src/core/*
-    - git add ju-repo/archive/*
-    - git commit -m "Build version $TRAVIS_TAG on windows."
     deploy:
       provider: pages
       github_token: $GITHUB_TOKEN
+      name: NicklasTegner
+      email: NicklasMCHD@live.dk
       skip_cleanup: true
       keep_history: true
       allow_empty_commit: false
