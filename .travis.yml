@@ -28,7 +28,7 @@ matrix:
     - git config --global user.name "NicklasTegner"
     - git add .
     - git commit -m "Build version $TRAVIS_TAG on mac."
-    - git push https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git master
+    - git push https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git HEAD:master
   - name: Python 3.7.3 on Windows
     os: windows
     language: shell
@@ -54,5 +54,5 @@ matrix:
     - git config --global user.name "NicklasTegner"
     - git add .
     - git commit -m "Build version $TRAVIS_TAG on mac."
-    - git push https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git master
+    - git push https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git HEAD:master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
