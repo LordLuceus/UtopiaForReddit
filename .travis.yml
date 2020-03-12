@@ -24,17 +24,11 @@ matrix:
     - python3 -m poetry run justupdate -d build specs/mac.spec
     - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
     - python3 -m poetry run justupdate -d upload -s gh-archive
-    deploy:
-      provider: pages
-      github_token: $GITHUB_TOKEN
-      name: NicklasTegner
-      email: NicklasMCHD@live.dk
-      skip_cleanup: true
-      keep_history: true
-      allow_empty_commit: false
-      target_branch: master
-      on:
-        tags: true
+    - git config --global user.email "NicklasMCHD@live.dk"
+    - git config --global user.name "NicklasTegner"
+    - git add .
+    - git commit -m "Build version $TRAVIS_TAG on mac."
+    - git push https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git master
   - name: Python 3.7.3 on Windows
     os: windows
     language: shell
@@ -56,15 +50,9 @@ matrix:
     - poetry run justupdate -d build specs/win-release.spec
     - poetry run justupdate -d commit $TRAVIS_TAG
     - poetry run justupdate -d upload -s gh-archive
-    deploy:
-      provider: pages
-      github_token: $GITHUB_TOKEN
-      name: NicklasTegner
-      email: NicklasMCHD@live.dk
-      skip_cleanup: true
-      keep_history: true
-      allow_empty_commit: false
-      target_branch: master
-      on:
-        tags: true
+    - git config --global user.email "NicklasMCHD@live.dk"
+    - git config --global user.name "NicklasTegner"
+    - git add .
+    - git commit -m "Build version $TRAVIS_TAG on mac."
+    - git push https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
