@@ -26,8 +26,8 @@ matrix:
     - python3 -m poetry run justupdate -d upload -s gh-archive
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
-    deploy:      provider: pages
-      skip_cleanup: true
+    deploy:
+      provider: pages
       github_token: $GITHUB_TOKEN
       keep_history: true
       target_branch: build
@@ -58,8 +58,8 @@ matrix:
     - git add src/core/*
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on windows."
-    deploy:      provider: pages
-      skip_cleanup: true
+    deploy:
+      provider: pages
       github_token: $GITHUB_TOKEN
       keep_history: true
       target_branch: build
