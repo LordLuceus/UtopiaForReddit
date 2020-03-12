@@ -1,3 +1,8 @@
+# custom
+ju-repo/work/*
+*.hashchain
+poetry.lock
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
