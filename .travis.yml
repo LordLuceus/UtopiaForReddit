@@ -30,8 +30,6 @@ matrix:
       provider: pages
       github_token: $GITHUB_TOKEN
       keep_history: true
-      on:
-        branch: master
   - name: Python 3.7.3 on Windows
     os: windows
     language: shell
@@ -61,6 +59,4 @@ matrix:
       provider: pages
       github_token: $GITHUB_TOKEN
       keep_history: true
-      on:
-        branch: master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
