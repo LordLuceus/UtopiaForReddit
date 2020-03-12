@@ -24,14 +24,13 @@ matrix:
     - python3 -m poetry run justupdate -d build specs/mac.spec
     - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
     - python3 -m poetry run justupdate -d upload -s gh-archive
-    - git add ju-repo/archive/*
-    - git commit -m "Build version $TRAVIS_TAG on mac."
     deploy:
       provider: pages
       github_token: $GITHUB_TOKEN
-      committer_from_gh: true
+      skip_cleanup: true
       keep_history: true
-      allow_empty_commit: true
+      allow_empty_commit: false
+      target_branch: master
       on:
         tags: true
   - name: Python 3.7.3 on Windows
@@ -62,9 +61,10 @@ matrix:
     deploy:
       provider: pages
       github_token: $GITHUB_TOKEN
-      committer_from_gh: true
+      skip_cleanup: true
       keep_history: true
-      allow_empty_commit: true
+      allow_empty_commit: false
+      target_branch: master
       on:
         tags: true
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
