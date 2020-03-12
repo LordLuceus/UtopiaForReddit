@@ -16,7 +16,7 @@ matrix:
     - python3 -m pip install -U pip wheel setuptools
     - python3 -m pip install -U poetry
     install:
-    - git clone git@github.com:${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
+    - git clone https://github.com/${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
     - python3 -m poetry update
@@ -33,7 +33,7 @@ matrix:
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
     - git pull origin master
-    - git push origin master
+    - git push https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${TRAVIS_REPO_SLUG} master
     - exit 0
   - name: Python 3.7.3 on Windows
     os: windows
@@ -47,7 +47,7 @@ matrix:
     - pip3 install -U pip wheel setuptools
     - pip3 install -U poetry
     install:
-    - git clone git@github.com:${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
+    - git clone https://github.com/${TRAVIS_REPO_SLUG} $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
     - git checkout -qf $TRAVIS_COMMIT
     - poetry update
@@ -67,7 +67,7 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     - git checkout .
     - git pull origin master
-    - git push origin master
+    - git push https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${TRAVIS_REPO_SLUG} master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 env:
   global:
