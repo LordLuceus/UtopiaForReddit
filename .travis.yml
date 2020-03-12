@@ -28,7 +28,6 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on mac."
     deploy:
       provider: pages
-      edge: true
       token: $GITHUB_TOKEN
       committer_from_gh: true
       keep_history: true
@@ -62,7 +61,6 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     deploy:
       provider: pages
-      edge: true
       token: $GITHUB_TOKEN
       committer_from_gh: true
       keep_history: true
