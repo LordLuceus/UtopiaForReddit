@@ -28,8 +28,11 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on mac."
     deploy:
       provider: pages
-      github_token: $GITHUB_TOKEN
+      edge: true
+      token: $GITHUB_TOKEN
+      committer_from_gh: true
       keep_history: true
+      allow_empty_commit: true
       on:
         tags: true
   - name: Python 3.7.3 on Windows
@@ -59,8 +62,11 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     deploy:
       provider: pages
-      github_token: $GITHUB_TOKEN
+      edge: true
+      token: $GITHUB_TOKEN
+      committer_from_gh: true
       keep_history: true
+      allow_empty_commit: true
       on:
         tags: true
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
