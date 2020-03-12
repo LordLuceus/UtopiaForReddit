@@ -34,7 +34,8 @@ matrix:
     - git add ju-repo/archive/*
     - git commit -m "Build version $TRAVIS_TAG on mac."
     - git pull origin master
-    - git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" master
+    - git remote set-url origin "https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git"
+    - git push origin master
     - exit 0
   - name: Python 3.7.3 on Windows
     os: windows
@@ -69,7 +70,8 @@ matrix:
     - git commit -m "Build version $TRAVIS_TAG on windows."
     - git checkout .
     - git pull origin master
-    - git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" master
+    - git remote set-url origin "https://NicklasTegner:${GITHUB_TOKEN}@github.com/NicklasTegner/UtopiaForReddit.git"
+    - git push origin master
     env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 env:
   global:
