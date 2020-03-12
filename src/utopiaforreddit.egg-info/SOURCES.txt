@@ -1,0 +1,7 @@
+setup.py
+src/utopiaforreddit.py
+src/utopiaforreddit.egg-info/PKG-INFO
+src/utopiaforreddit.egg-info/SOURCES.txt
+src/utopiaforreddit.egg-info/dependency_links.txt
+src/utopiaforreddit.egg-info/requires.txt
+src/utopiaforreddit.egg-info/top_level.txt

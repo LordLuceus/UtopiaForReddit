@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: utopiaforreddit
+Version: 1.0.0
+Summary: An Accessible Reddit client for WIndows and MacOS
+Home-page: UNKNOWN
+Author: Nicklas Tegner
+Author-email: nicklas@accessiware.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6,<4.0
