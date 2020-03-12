@@ -1,3 +1,3 @@
 #!/bin/sh
-sudo open -a '%APP_NAME%'
+sudo open -a 'UtopiaForReddit'
 exit 0
