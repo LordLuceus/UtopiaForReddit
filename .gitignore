@@ -2,7 +2,7 @@
 ju-repo/work/*
 *.hashchain
 poetry.lock
-
+*.egg-info
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

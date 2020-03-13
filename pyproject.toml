@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "UtopiaForReddit"
 version = "1.0.0"
-description = "An Accessible Reddit client for WIndows and MacOS"
+description = "An Accessible Reddit client for Windows and MacOS"
 authors = ["Nicklas Tegner <nicklas@accessiware.com>"]
 
 [tool.poetry.dependencies]
