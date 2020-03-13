@@ -25,7 +25,7 @@ def setup_logging():
 
 def setup_caching():
 	logger.info("Installing cache")
-	requests_cache.install_cache(os.path.join(variables.data_dir, 'reddit'), expire_after=21600)
+	requests_cache.install_cache(os.path.join(variables.data_dir, 'reddit'), expire_after=43200)
 	logger.info("Removing obsolete data from cache.")
 	requests_cache.remove_expired_responses()
 	logger.info("Caching installed and enabled.")
