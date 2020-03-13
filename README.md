@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/NicklasTegner/UtopiaForReddit.svg?branch=master)](https://travis-ci.com/NicklasTegner/UtopiaForReddit)
 
+# NOTE: UTOPIA IS STILL VERY MUCH IN ALPHA. RUN AT YOUR OWN RISK. MANY FEATURES AREN'T CODED YET, AND SOME FEATURES MAY NOT WORK AS EXCPECTED!!!
 
 ### What is this
 UtopiaForReddit (also just Utopia) is a reddit client for the blind and visually impaired, running on Windows and MacOS.
