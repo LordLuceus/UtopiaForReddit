@@ -7,6 +7,7 @@ import platform
 import subprocess
 import os
 import requests
+import zlib
 from logzero import logger
 from justupdate.client.client import JustUpdateClient
 from justupdate.repo.version import Version
@@ -48,7 +49,7 @@ def check_for_updates(show_result =False):
 			return
 		else:
 			raise ValueError("No update available.")
-	except (requests.exceptions.ConnectionError, ValueError) as e:
+	except (requests.exceptions.ConnectionError, ValueError, zlib.error) as e:
 		logger.warn("Status when checking for updates: "+str(e))
 		if show_result:
 			result = wx.MessageDialog(wx.GetTopLevelWindows()[0], caption="UtopiaForReddit", message="No update found.")

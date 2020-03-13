@@ -13,7 +13,7 @@ config = None
 defaults = {"users": {}, "auto_check_for_updates": True}
 
 # reddit api stuff.
-reddit_client_id = 'TkSJQnpaTrTtSQ'
+reddit_client_id = 'Lq2gfWTeB8KVnQ'
 reddit_user_agent = 'UtopiaForReddit by /u/UtopiaForReddit'
 
 # updater stuff
