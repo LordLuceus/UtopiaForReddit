@@ -17,9 +17,6 @@ matrix:
     - git checkout -qf $TRAVIS_COMMIT
     - python3 -m poetry install
     - python3 -m poetry run python version_writer.py $TRAVIS_TAG
-    - cd src
-    - python3 -m poetry run python cython-compiler.py -c -e UtopiaForReddit.py
-    - cd ../
     script:
     - python3 -m poetry run justupdate -d build specs/mac.spec
     - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
@@ -44,9 +41,6 @@ matrix:
     install:
     - poetry install
     - poetry run python version_writer.py $TRAVIS_TAG
-    - cd src
-    - poetry run python cython-compiler.py -c -e UtopiaForReddit.py
-    - cd ../
     script:
     - poetry run justupdate -d build specs/win-release.spec
     - poetry run justupdate -d commit $TRAVIS_TAG
