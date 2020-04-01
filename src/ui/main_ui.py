@@ -44,6 +44,8 @@ class MainWindow(wx.Frame):
 		application_menu.Bind(wx.EVT_MENU, self.on_open_account_manager, id=10000)
 		application_menu.Append(wx.ID_PREFERENCES, "&Preferences" + "\tCTRL+SHIFT+P" if platform.system() == "Windows" else "&Preferences" + "\tCTRL+,", "Open the preferences.")
 		application_menu.Bind(wx.EVT_MENU, self.on_open_preferences, id=wx.ID_PREFERENCES)
+		application_menu.Append(10001, "License")
+		application_menu.Bind(wx.EVT_MENU, lambda event: info_box.show_info_box(self, "Utopia For Reddit License", variables.program_license), id=10001)
 		application_menu.Append(wx.ID_EXIT, "Exit")
 		application_menu.Bind(wx.EVT_MENU, lambda event: self.Close(), id=wx.ID_EXIT)
 		menuBar = wx.MenuBar()
