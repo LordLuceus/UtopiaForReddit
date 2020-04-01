@@ -44,6 +44,8 @@ class MainWindow(wx.Frame):
 		application_menu.Bind(wx.EVT_MENU, self.on_open_account_manager, id=10000)
 		application_menu.Append(wx.ID_PREFERENCES, "&Preferences" + "\tCTRL+SHIFT+P" if platform.system() == "Windows" else "&Preferences" + "\tCTRL+,", "Open the preferences.")
 		application_menu.Bind(wx.EVT_MENU, self.on_open_preferences, id=wx.ID_PREFERENCES)
+		application_menu.Append(wx.ID_EXIT, "Exit")
+		application_menu.Bind(wx.EVT_MENU, lambda event: self.Close(), id=wx.ID_EXIT)
 		menuBar = wx.MenuBar()
 		menuBar.Append(application_menu, "Application")
 		self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
