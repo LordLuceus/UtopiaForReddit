@@ -45,10 +45,17 @@ class GeneralPreferencesPage(wx.Panel):
 		self.check_for_updates.SetValue(config.get("auto_check_for_updates"))
 		sizer.Add(self.check_for_updates, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
 		
+		l1 = wx.StaticText(self, label="Update Channel:")
+		sizer.Add(l1, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 1))
+		self.update_channel = wx.Choice(self, choices=["stable", "beta", "alpha"])
+		self.update_channel.SetSelection(self.update_channel.FindString(config.get("update_channel")))
+		sizer.Add(self.update_channel, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
+		
 		self.SetSizer(sizer)
 
 	def save(self, config):
 		config.set("auto_check_for_updates", self.check_for_updates.IsChecked())
+		config.set("update_channel", self.update_channel.GetString(self.update_channel.GetCurrentSelection()))
 
 def open_preferences():
 	prefFrame = Preferences(wx.GetTopLevelWindows()[0], title="Preferences")
@@ -64,7 +71,7 @@ def open_preferences():
 		logger.debug("Not saving preferences.")
 		return
 	else:
-		logging.info("Saving preferences")
+		logger.info("Saving preferences")
 		count = 0
 		while count < base.GetPageCount():
 			page = base.GetPage(count)

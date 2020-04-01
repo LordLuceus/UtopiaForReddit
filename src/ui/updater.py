@@ -38,7 +38,7 @@ def check_for_updates(show_result =False):
 		err.Destroy()
 		return
 	logger.info("Initializing updater.")
-	updater_client = JustUpdateClient(ClientConfig(), variables.version, variables.release_channel)
+	updater_client = JustUpdateClient(ClientConfig(), variables.version, variables.config.get("update_channel"))
 	if updater_client.is_post_update():
 		logger.info("Running post update actions")
 		updater_client.cleanup()
