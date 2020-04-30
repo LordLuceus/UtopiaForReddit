@@ -13,7 +13,7 @@ UtopiaForReddit (also just Utopia) is a reddit client for the blind and visually
 If you're looking for binary distributions of Utopia, please go to [the releases page](https://github.com/NicklasTegner/UtopiaForReddit/releases) and pick the latest stable version (beta and alpha's at your own risk).
 
 
-#### Installation from source:
+#### Running from source:
 
 To install Utopia from source, do the following:
 

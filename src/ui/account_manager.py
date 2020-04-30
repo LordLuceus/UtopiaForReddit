@@ -58,6 +58,10 @@ class AccountManagerUI(wx.Frame):
 		if result == wx.ID_NO:
 			return
 		self.account_list.DeleteItem(selected)
+		users = variables.config.get("users")
+		del users[label]
+		variables.config.set("users", users)
+		variables.config.save()
 
 	def on_done(self, event):
 		if len(variables.config.get("users").keys()) == 0:
