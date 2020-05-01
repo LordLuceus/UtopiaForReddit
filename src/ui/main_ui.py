@@ -17,6 +17,7 @@
 
 import platform
 from datetime import datetime
+import webbrowser
 
 import requests_cache
 from logzero import logger
@@ -29,6 +30,12 @@ from ui import info_box
 from ui.account_manager import *
 from core import variables
 
+class CustomIDS:
+	"""Custom UI ids"""
+	ACCOUNT_MANAGER = 10000
+	LICENSE = 10001
+	DONATE = 10002
+
 class MainWindow(wx.Frame):
 	def __init__(self):
 		# first construct reddit instances with the found access tokens.
@@ -40,13 +47,17 @@ class MainWindow(wx.Frame):
 		self.accounts = accounts
 		
 		application_menu= wx.Menu()
-		application_menu.Append(10000, "Account Manager", "Add and remove reddit accounts.")
-		application_menu.Bind(wx.EVT_MENU, self.on_open_account_manager, id=10000)
-		application_menu.Append(wx.ID_PREFERENCES, "&Preferences" + "\tCTRL+SHIFT+P" if platform.system() == "Windows" else "&Preferences" + "\tCTRL+,", "Open the preferences.")
+		
+		application_menu.Append(CustomIDS.ACCOUNT_MANAGER, "Account Manager", "Add and remove reddit accounts.")
 		application_menu.Bind(wx.EVT_MENU, self.on_open_preferences, id=wx.ID_PREFERENCES)
-		application_menu.Append(10001, "License")
-		application_menu.Bind(wx.EVT_MENU, lambda event: info_box.show_info_box(self, "Utopia For Reddit License", variables.program_license), id=10001)
+		application_menu.Append(CustomIDS.LICENSE, "License")
+		application_menu.Append(CustomIDS.DONATE, "Donate")
 		application_menu.Append(wx.ID_EXIT, "Exit")
+		
+		application_menu.Bind(wx.EVT_MENU, self.on_open_account_manager, id=CustomIDS.ACCOUNT_MANAGER)
+		application_menu.Append(wx.ID_PREFERENCES, "&Preferences" + "\tCTRL+SHIFT+P" if platform.system() == "Windows" else "&Preferences" + "\tCTRL+,", "Open the preferences.")
+		application_menu.Bind(wx.EVT_MENU, lambda event: info_box.show_info_box(self, "Utopia For Reddit License", variables.program_license), id=CustomIDS.LICENSE)
+		application_menu.Bind(wx.EVT_MENU, lambda event: webbrowser.open("https://accessiware.com/donate"), id=CustomIDS.DONATE)
 		application_menu.Bind(wx.EVT_MENU, lambda event: self.Close(), id=wx.ID_EXIT)
 		menuBar = wx.MenuBar()
 		menuBar.Append(application_menu, "Application")

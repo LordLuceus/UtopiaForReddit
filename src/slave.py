@@ -15,6 +15,8 @@
     along with UtopiaForReddit.  If not, see <https://raw.githubusercontent.com/NicklasTegner/UtopiaForReddit/master/LICENSE>.
 """
 
+import sys
+
 import praw
 from logzero import logger
 import wx
@@ -28,6 +30,7 @@ from ui.main_ui import *
 from ui import updater
 
 def _real_main():
+	"""Setup the application, initialize the ui system, check for accounts and start"""
 	utils.insure_filesystem()
 	utils.setup_logging()
 	utils.setup_caching()
@@ -41,12 +44,16 @@ def _real_main():
 		logger.info("No authorizated accounts available. Opening account manager")
 		amu = AccountManagerUI()
 		amu.Show()
-	else: # open regular gui
+	else: # open regular gui because we already have accounts.
 		logger.info("Authorizated Accounts found. Opening regular gui")
 		main_ui = MainWindow()
 		app.SetTopWindow(main_ui)
 		main_ui.Show()
-	logger.info("Checking for updates.")
-	updater.check_for_updates()
+	# only check for updates, if we are running compiled
+	if hasattr(sys, "frozen"):
+		logger.info("Checking for updates.")
+		updater.check_for_updates()
+	else:
+		logger.info("Skipping update check because we are running from source.")
 	logger.info("Entering main loop")
 	app.MainLoop()
