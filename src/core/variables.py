@@ -32,6 +32,7 @@ defaults = {"users": {}, "auto_check_for_updates": True, "update_channel": "stab
 # reddit api stuff.
 reddit_client_id = 'Lq2gfWTeB8KVnQ'
 reddit_user_agent = 'UtopiaForReddit by /u/UtopiaForReddit'
+reddit_submission_id_cache = {}
 
 # updater stuff
 update_in_progress = False

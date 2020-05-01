@@ -18,6 +18,7 @@
 import platform
 from datetime import datetime
 import webbrowser
+import random
 
 import requests_cache
 from logzero import logger
@@ -28,7 +29,10 @@ from reddit_managers.stream_manager import SubredditStreamer
 from ui import preferences
 from ui import info_box
 from ui.account_manager import *
+from ui.submission_viewer import *
+
 from core import variables
+from core import utils
 
 class CustomIDS:
 	"""Custom UI ids"""
@@ -78,6 +82,7 @@ class MainWindow(wx.Frame):
 		self.account_overview_list.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_feed_selected)
 		
 		self.feed_overview_list = wx.ListView(parent=self.panel, style=wx.LC_LIST)
+		self.feed_overview_list.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.on_submission_activated)
 		
 		self.Centre()
 
@@ -115,6 +120,7 @@ Trophies: {parsed_trophies}
 			counter = self.account_overview_list.InsertItem(counter, subreddit.display_name)
 
 	def on_feed_selected(self, event):
+		variables.reddit_submission_id_cache.clear()
 		feed_name = event.GetLabel()
 		self.feed_overview_list.ClearAll()
 		if feed_name == "home":
@@ -122,12 +128,24 @@ Trophies: {parsed_trophies}
 				count = 0
 				for submission in self.current_account.front.hot(limit=200):
 					count = self.feed_overview_list.InsertItem(count, submission.title)
+					generated_id = random.randint(1,100000)
+					variables.reddit_submission_id_cache[generated_id] = submission.id
+					self.feed_overview_list.SetItemData(count, generated_id)
 				return
 		else:
 			submissions = self.streamers[feed_name].submissions
 			count = 0
 			for submission in submissions:
 				count = self.feed_overview_list.InsertItem(count, submission.title)
+				generated_id = random.randint(1,100000)
+				variables.reddit_submission_id_cache[generated_id] = submission.id
+				self.feed_overview_list.SetItemData(count, generated_id)
+
+	def on_submission_activated(self, event):
+		cached_id = self.feed_overview_list.GetItemData(event.GetIndex())
+		print(cached_id)
+		viewer = SubmissionViewer(self, self.current_account.submission(id=variables.reddit_submission_id_cache[cached_id]))
+		viewer.Show(True)
 
 	# menubar
 	def on_open_account_manager(self, event):

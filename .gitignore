@@ -1,5 +1,7 @@
 # custom
 ju-repo/work/*
+ju-repo/dist/*
+src/core/reddit_credentials.py
 *.hashchain
 poetry.lock
 *.egg-info
