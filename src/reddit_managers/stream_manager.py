@@ -30,8 +30,7 @@ class SubredditStreamer():
 	def _stream_subreddit(self):
 		subreddit = self.reddit_instance.subreddit(self.name)
 		with requests_cache.disabled():
-			for submission in subreddit.stream.submissions():
-				self.submissions.append(submission)
+			[self.submissions.append(submission) for submission in subreddit.stream.submissions()]
 	
 	def get_submissions(self):
 		return self.submissions

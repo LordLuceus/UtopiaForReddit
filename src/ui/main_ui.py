@@ -59,9 +59,11 @@ class MainWindow(wx.Frame):
 		application_menu.Bind(wx.EVT_MENU, lambda event: info_box.show_info_box(self, "Utopia For Reddit License", variables.program_license), id=CustomIDS.LICENSE)
 		application_menu.Bind(wx.EVT_MENU, lambda event: webbrowser.open("https://accessiware.com/donate"), id=CustomIDS.DONATE)
 		application_menu.Bind(wx.EVT_MENU, lambda event: self.Close(), id=wx.ID_EXIT)
+		
 		menuBar = wx.MenuBar()
 		menuBar.Append(application_menu, "Application")
 		self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
+		
 		self.panel = wx.Panel(parent=self)
 		self.streamers = {}
 		
@@ -118,19 +120,14 @@ Trophies: {parsed_trophies}
 		if feed_name == "home":
 			with requests_cache.disabled():
 				count = 0
-				for submission in self.current_account.front.hot():
+				for submission in self.current_account.front.hot(limit=200):
 					count = self.feed_overview_list.InsertItem(count, submission.title)
-					if count == 250:
-						break
 				return
 		else:
-			count = 0
 			submissions = self.streamers[feed_name].submissions
 			count = 0
 			for submission in submissions:
 				count = self.feed_overview_list.InsertItem(count, submission.title)
-				if count == 250:
-					break
 
 	# menubar
 	def on_open_account_manager(self, event):
