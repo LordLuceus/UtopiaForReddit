@@ -27,7 +27,7 @@ data_dir = user_data_dir(app_name, app_author, roaming=True)
 
 # Configuration singleton
 config = None
-defaults = {"users": {}, "auto_check_for_updates": True, "update_channel": "stable"}
+defaults = {"users": {}, "auto_check_for_updates": True, "update_channel": "stable", "current_tip": 0, "show_tips_on_startup": True}
 
 # reddit api stuff.
 reddit_client_id = 'Lq2gfWTeB8KVnQ'

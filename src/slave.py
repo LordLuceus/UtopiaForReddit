@@ -26,6 +26,7 @@ from core import utils
 from core import variables
 
 from ui import exception_handler
+from ui import tips
 from ui.account_manager import *
 from ui.main_ui import *
 from ui import updater
@@ -52,6 +53,7 @@ def _real_main():
 		main_ui = MainWindow()
 		app.SetTopWindow(main_ui)
 		main_ui.Show()
+		tips.show_tips(main_ui)
 	# only check for updates, if we are running compiled
 	if hasattr(sys, "frozen"):
 		logger.info("Checking for updates.")
