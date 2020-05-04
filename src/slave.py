@@ -25,6 +25,7 @@ from core import config
 from core import utils
 from core import variables
 
+from ui import exception_handler
 from ui.account_manager import *
 from ui.main_ui import *
 from ui import updater
@@ -35,6 +36,8 @@ def _real_main():
 	utils.setup_logging()
 	utils.setup_caching()
 	logger.info(f"Starting UtopiaForReddit version 0")
+	logger.info("Registering exception handler.")
+	exception_handler.attach()
 	logger.info("Loading config and saving defaults if needed.")
 	variables.config = config.get_config().load().save_defaults()
 	logger.info("Starting ui framework")

@@ -24,6 +24,7 @@ import requests_cache
 from logzero import logger
 import wx
 import praw
+import prawcore
 from reddit_managers.stream_manager import SubredditStreamer
 
 from ui import preferences
@@ -80,6 +81,7 @@ class MainWindow(wx.Frame):
 		
 		self.account_overview_list = wx.ListView(parent=self.panel, style=wx.LC_LIST)
 		self.account_overview_list.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_feed_selected)
+		self.account_overview_list.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.on_feed_activated)
 		
 		self.feed_overview_list = wx.ListView(parent=self.panel, style=wx.LC_LIST)
 		self.feed_overview_list.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.on_submission_activated)
@@ -118,6 +120,25 @@ Trophies: {parsed_trophies}
 		for subreddit in self.accounts[username].user.subreddits():
 			self.streamers[subreddit.display_name] = SubredditStreamer(self.current_account, subreddit.display_name)
 			counter = self.account_overview_list.InsertItem(counter, subreddit.display_name)
+
+	def on_feed_activated(self, event):
+		feed_name = event.GetLabel()
+		if feed_name == "home":
+			event.Skip()
+			return
+		subreddit = self.current_account.subreddit(feed_name)
+		flairs = ""
+		try:
+			flairs = ', '.join(subreddit.flair())
+		except prawcore.exceptions.Forbidden:
+			pass
+		msg = f"""{subreddit}
+{subreddit.description}
+NSFW: {'yes' if subreddit.over18 else 'no'}, {subreddit.subscribers} subscribers.
+
+created: {datetime.utcfromtimestamp(subreddit.created_utc).strftime('%Y-%m-%d %H:%M:%S')}
+"""
+		info_box.show_info_box(self, f"{subreddit} Subreddit", msg)
 
 	def on_feed_selected(self, event):
 		variables.reddit_submission_id_cache.clear()
