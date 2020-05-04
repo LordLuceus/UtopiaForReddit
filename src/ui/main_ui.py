@@ -168,7 +168,6 @@ created: {datetime.utcfromtimestamp(subreddit.created_utc).strftime('%Y-%m-%d %H
 
 	def on_submission_activated(self, event):
 		cached_id = self.feed_overview_list.GetItemData(event.GetIndex())
-		print(cached_id)
 		viewer = SubmissionViewer(self, self.current_account.submission(id=variables.reddit_submission_id_cache[cached_id]))
 		viewer.Show(True)
 
