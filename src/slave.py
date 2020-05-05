@@ -20,6 +20,7 @@ import sys
 import praw
 from logzero import logger
 import wx
+import requests_cache
 
 from core import config
 from core import utils
@@ -53,6 +54,8 @@ def _real_main():
 		main_ui = MainWindow()
 		app.SetTopWindow(main_ui)
 		main_ui.Show()
+		logger.info("Removing obsolete data from cache.")
+		requests_cache.remove_expired_responses()
 		tips.show_tips(main_ui)
 	# only check for updates, if we are running compiled
 	if hasattr(sys, "frozen"):
