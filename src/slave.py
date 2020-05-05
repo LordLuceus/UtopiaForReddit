@@ -27,6 +27,7 @@ from core import utils
 from core import variables
 
 from ui import exception_handler
+from ui import info_box
 from ui import tips
 from ui.account_manager import *
 from ui.main_ui import *
@@ -44,6 +45,9 @@ def _real_main():
 	variables.config = config.get_config().load().save_defaults()
 	logger.info("Starting ui framework")
 	app = wx.App(redirect=False, useBestVisual=True)
+	# Check if this is the first time we run UtopiaForReddit on this computer.
+	if variables.first_run: # If true then open first time information / configuration.
+		frd = info_box.show_info_box(None, "UtopiaForReddit Has Been Installed", f"Thanks for installing UtopiaForReddit.\n\nIf you at any point, find an issue or have a feature request, you can submit it at https://github.com/NicklasTegner/UtopiaForReddit/issues/\n\nIf you benefit from UtopiaForReddit and want the program to continue to evolve, then consider donating to NicklasTegner / Accessiware. To do this, choose Donate from the main application menu, or go to https://accessiware.com/donate.\n\nLicense:{variables.program_license}")
 	# see if we need to open the account manager or just the reqgular gui (account manager, if we have no accounts authorizated)
 	if len(variables.config.get("users")) == 0: # no accounts authorizated. Open account manager
 		logger.info("No authorizated accounts available. Opening account manager")

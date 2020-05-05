@@ -28,6 +28,7 @@ from core import variables
 def insure_filesystem():
 	try:
 		os.makedirs(variables.data_dir)
+		variables.first_run = True
 	except:
 		pass
 	try:

@@ -36,6 +36,7 @@ reddit_submission_id_cache = {}
 
 # updater stuff
 update_in_progress = False
+first_run = False
 
 # license
 program_license = """
