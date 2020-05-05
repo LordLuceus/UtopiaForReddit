@@ -51,11 +51,16 @@ class GeneralPreferencesPage(wx.Panel):
 		self.update_channel.SetSelection(self.update_channel.FindString(config.get("update_channel")))
 		sizer.Add(self.update_channel, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
 		
+		self.show_tips_at_startup = wx.CheckBox(self, wx.ID_ANY, "Show program tips at startup.")
+		self.show_tips_at_startup.SetValue(config.get("show_tips_on_startup"))
+		sizer.Add(self.show_tips_at_startup, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
+		
 		self.SetSizer(sizer)
 
 	def save(self, config):
 		config.set("auto_check_for_updates", self.check_for_updates.IsChecked())
 		config.set("update_channel", self.update_channel.GetString(self.update_channel.GetCurrentSelection()))
+		config.set("show_tips_on_startup", self.show_tips_at_startup.IsChecked())
 
 def open_preferences():
 	prefFrame = Preferences(wx.GetTopLevelWindows()[0], title="Preferences")
