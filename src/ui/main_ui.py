@@ -56,14 +56,14 @@ class MainWindow(wx.Frame):
 		application_menu= wx.Menu()
 		
 		application_menu.Append(CustomIDS.ACCOUNT_MANAGER, "Account Manager", "Add and remove reddit accounts.")
-		application_menu.Bind(wx.EVT_MENU, self.on_open_preferences, id=wx.ID_PREFERENCES)
+		application_menu.Append(wx.ID_PREFERENCES, "&Preferences" + "\tCTRL+SHIFT+P" if platform.system() == "Windows" else "&Preferences" + "\tCTRL+,", "Open the preferences.")
 		application_menu.Append(CustomIDS.LICENSE, "License")
 		application_menu.Append(CustomIDS.DONATE, "Donate")
 		application_menu.Append(CustomIDS.SHOW_TIPS, "Show Utopia Program Tips")
 		application_menu.Append(wx.ID_EXIT, "Exit")
 		
 		application_menu.Bind(wx.EVT_MENU, self.on_open_account_manager, id=CustomIDS.ACCOUNT_MANAGER)
-		application_menu.Append(wx.ID_PREFERENCES, "&Preferences" + "\tCTRL+SHIFT+P" if platform.system() == "Windows" else "&Preferences" + "\tCTRL+,", "Open the preferences.")
+		application_menu.Bind(wx.EVT_MENU, self.on_open_preferences, id=wx.ID_PREFERENCES)
 		application_menu.Bind(wx.EVT_MENU, lambda event: info_box.show_info_box(self, "Utopia For Reddit License", variables.program_license), id=CustomIDS.LICENSE)
 		application_menu.Bind(wx.EVT_MENU, lambda event: webbrowser.open("https://accessiware.com/donate"), id=CustomIDS.DONATE)
 		application_menu.Bind(wx.EVT_MENU, lambda event: tips.show_tips(self, True), id=CustomIDS.SHOW_TIPS)
