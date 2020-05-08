@@ -22,7 +22,7 @@ from core import variables
 class UtopiaTipProvider(wx.adv.TipProvider):
 	def __init__(self, index=0):
 		self.tips = [
-		"When clicking on an username in the account list, information about that account will be shown."
+		"When clicking on a username in the account list, information about that account will be shown."
 		]
 		self.index = variables.config.get("current_tip")
 		super().__init__(self.index)
