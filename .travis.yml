@@ -23,6 +23,7 @@ matrix:
     script:
     - python3 -m poetry run justupdate -d build specs/mac.spec
     - python3 -m poetry run justupdate -d commit $TRAVIS_TAG
+    - python3 -m poetry run python travis_build_cleaner.py $TRAVIS_TAG
     - python3 -m poetry run justupdate -d upload -s gh-archive
     - git config --global user.email "NicklasMCHD@live.dk"
     - git config --global user.name "NicklasTegner"
@@ -50,6 +51,7 @@ matrix:
     script:
     - poetry run justupdate -d build specs/win-release.spec
     - poetry run justupdate -d commit $TRAVIS_TAG
+    - poetry run python travis_build_cleaner.py $TRAVIS_TAG
     - poetry run justupdate -d upload -s gh-archive
     - git config --global user.email "NicklasMCHD@live.dk"
     - git config --global user.name "NicklasTegner"
