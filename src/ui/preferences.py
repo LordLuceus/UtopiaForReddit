@@ -15,11 +15,13 @@
     along with UtopiaForReddit.  If not, see <https://raw.githubusercontent.com/NicklasTegner/UtopiaForReddit/master/LICENSE>.
 """
 
-from logzero import logger
+import logging
 import wx
 import wx.adv
 
 from core import variables
+
+from wxasync import AsyncShowDialog
 
 class Preferences(wx.adv.PropertySheetDialog):
 	def __init__(self, parent, title):
@@ -52,7 +54,7 @@ class GeneralPreferencesPage(wx.Panel):
 		sizer.Add(self.update_channel, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
 		
 		self.show_tips_at_startup = wx.CheckBox(self, wx.ID_ANY, "Show program tips at startup.")
-		self.show_tips_at_startup.SetValue(config.get("show_tips_on_startup"))
+		self.show_tips_at_startup.SetValue(config.get("show_tips_at_startup"))
 		sizer.Add(self.show_tips_at_startup, wx.SizerFlags(1).Align(wx.TOP).Expand().Border(wx.ALL, 10))
 		
 		self.SetSizer(sizer)
@@ -60,9 +62,9 @@ class GeneralPreferencesPage(wx.Panel):
 	def save(self, config):
 		config.set("auto_check_for_updates", self.check_for_updates.IsChecked())
 		config.set("update_channel", self.update_channel.GetString(self.update_channel.GetCurrentSelection()))
-		config.set("show_tips_on_startup", self.show_tips_at_startup.IsChecked())
+		config.set("show_tips_at_startup", self.show_tips_at_startup.IsChecked())
 
-def open_preferences():
+async def open_preferences():
 	prefFrame = Preferences(wx.GetTopLevelWindows()[0], title="Preferences")
 	base = prefFrame.setup()
 	
@@ -71,17 +73,17 @@ def open_preferences():
 	
 	prefFrame.finalize()
 	prefFrame.Centre()
-	result = prefFrame.ShowModal ()
+	result = await AsyncShowDialog(prefFrame)
 	if result == wx.ID_CANCEL:
-		logger.debug("Not saving preferences.")
+		logging.debug("Not saving preferences.")
 		return
 	else:
-		logger.info("Saving preferences")
+		logging.info("Saving preferences")
 		count = 0
 		while count < base.GetPageCount():
 			page = base.GetPage(count)
-			logger.debug("Saving preferences on " + page.__class__.__name__)
+			logging.debug("Saving preferences on " + page.__class__.__name__)
 			page.save(variables.config)
 			count += 1
 		variables.config.save()
-		logger.info("Preferences saved")
+		logging.info("Preferences saved")

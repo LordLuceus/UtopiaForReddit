@@ -16,27 +16,28 @@
 """
 
 from appdirs import user_data_dir
+from justupdate.repo.version import Version as ju_version
 
-from core.version_helper import git_tag_version, git_tag_release_channel
+from updater.version_helper import git_tag_version, git_tag_release_channel
 
 app_name = "UtopiaForReddit"
 app_author = "accessiware"
 version = git_tag_version
 release_channel = git_tag_release_channel
+version_human_friendly = ju_version(version).to_human_readable()
 data_dir = user_data_dir(app_name, app_author, roaming=True)
 
-# Configuration singleton
-config = None
-defaults = {"users": {}, "auto_check_for_updates": True, "update_channel": "stable", "current_tip": 0, "show_tips_on_startup": True}
+first_run = False
+update_in_progress = False
 
-# reddit api stuff.
+# Configuration stuff
+config = None
+defaults = {"accounts": {}, "auto_check_for_updates": True, "update_channel": "stable", "current_tip": 0, "show_tips_at_startup": True}
+
+# reddit api
 reddit_client_id = 'Lq2gfWTeB8KVnQ'
 reddit_user_agent = 'UtopiaForReddit by /u/UtopiaForReddit'
-reddit_submission_id_cache = {}
 
-# updater stuff
-update_in_progress = False
-first_run = False
 
 # license
 program_license = """

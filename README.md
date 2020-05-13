@@ -10,10 +10,12 @@ UtopiaForReddit (also just Utopia) is a reddit client for the blind and visually
 
 ### Installation
 
-If you're looking for binary distributions of Utopia, please go to [the releases page](https://github.com/NicklasTegner/UtopiaForReddit/releases) and pick the latest stable version (beta and alpha's at your own risk).
+No binary versions are available at this stage of development.
 
 
 #### Running from source:
+Note for windows: To successfully run Utopia from source, you will need to install the Visual Studio build tools 14.X.
+Note for all platforms: Utopia has only been tested on Python 3.6x and Python 3.7x. Utopia will not work on earlier versions.
 
 To install Utopia from source, do the following:
 

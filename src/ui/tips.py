@@ -44,7 +44,7 @@ class UtopiaTipProvider(wx.adv.TipProvider):
 		return tip
 
 def show_tips(parent, bypass=False):
-	if variables.config.get("show_tips_on_startup") == False and bypass == False:
+	if variables.config.get("show_tips_at_startup") == False and bypass == False:
 		return
-	variables.config.set("show_tips_on_startup", wx.adv.ShowTip(parent, UtopiaTipProvider(), variables.config.get("show_tips_on_startup")))
+	variables.config.set("show_tips_at_startup", wx.adv.ShowTip(parent, UtopiaTipProvider(), variables.config.get("show_tips_at_startup")))
 	variables.config.save()

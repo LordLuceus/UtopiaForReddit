@@ -21,45 +21,44 @@ import os
 import socketserver
 import urllib
 import webbrowser
+import logging
 
-from logzero import logger
 import praw
 
 from core import variables
+from reddit import account_manager
 
 def _new_reddit_instance():
 	return praw.Reddit(client_id=variables.reddit_client_id, client_secret=None, redirect_uri='http://localhost:8080', user_agent=variables.reddit_user_agent)
 
-def _get_url(reddit_instance):
+def _get_oauth_url(reddit_instance):
 	return reddit_instance.auth.url(['creddits modcontributors modmail modconfig subscribe structuredstyles vote wikiedit mysubreddits submit modlog modposts modflair save modothers read privatemessages report identity livemanage account modtraffic wikiread edit modwiki modself history flair'], '...', 'permanent')
 
 def authorize_new_reddit_account():
-	logger.info("Starting authorization for new user")
+	logging.info("Starting authorization for new user")
 	reddit_instance = _new_reddit_instance()
-	logger.info("Opening authorization url")
-	webbrowser.open(_get_url(reddit_instance))
-	logger.info("Waiting for response")
+	logging.info("Opening authorization url")
+	webbrowser.open(_get_oauth_url(reddit_instance))
+	logging.info("Waiting for response")
 	with socketserver.TCPServer(("127.0.0.1", 8080), OauthHandler) as httpd:
 		httpd.serve_forever()
 	if os.environ["reddit_code"] == "request_denied":
-		logger.warn("Authorization request denied by user.")
+		logging.warn("Authorization request denied by user.")
 		del os.environ["reddit_code"]
 		return
-	logger.info("Authorizating with reddit")
+	logging.info("Authorizating with reddit")
 	token = reddit_instance.auth.authorize(os.environ["reddit_code"])
-	logger.info("Authorization done. Saving token")
-	users = variables.config.get("users")
-	users = {**users, reddit_instance.user.me().name: token}
-	variables.config.set("users", users)
-	variables.config.save()
-	logger.info("Token saved.")
+	logging.info("Authorization done. Saving token")
+	am = account_manager.AccountManager()
+	am.add_account(reddit_instance.user.me().name, token)
+	logging.info("Token saved.")
 
 class OauthHandler(http.server.BaseHTTPRequestHandler):
 	def do_GET(self):
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html; charset=utf-8')
 		self.end_headers()
-		logger.info("Processing response")
+		logging.info("Processing response")
 		query = urllib.parse.urlsplit(self.path).query
 		params = urllib.parse.parse_qs(query)
 		try:

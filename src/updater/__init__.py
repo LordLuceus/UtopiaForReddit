@@ -14,4 +14,3 @@
     You should have received a copy of the GNU General Public License
     along with UtopiaForReddit.  If not, see <https://raw.githubusercontent.com/NicklasTegner/UtopiaForReddit/master/LICENSE>.
 """
-

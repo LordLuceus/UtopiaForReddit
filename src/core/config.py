@@ -126,4 +126,4 @@ class Config():
 
 # Get the global configuration instance.
 def get_config():
-	return Config(os.path.join(variables.data_dir, "application.conf"), "ashd897hASudh879sadh89H8sdh89HAS8dh2hekjfgA", variables.defaults)
+	return Config(os.path.join(variables.data_dir, "application.conf"), "jsdiasjd89j8)HD78shs7(DH7sa8dh", variables.defaults)
