@@ -62,13 +62,16 @@ class HomePanel(GenericNotebookPanel):
 				self.submission_list.InsertItem(0, submission.title)
 				await asyncio.sleep(1)
 
-class SubredditPanel(GenericNotebookPanel):
-	def __init__(self, parent, reddit_instance, subreddit):
+class SubredditsPanel(GenericNotebookPanel):
+	def __init__(self, parent, reddit_instance):
 		super().__init__(parent, reddit_instance)
-		self.subreddit = subreddit
+		self.subreddit_list = wx.ListView(self)
+		self.subreddit_list.AppendColumn("Subreddits")
 
 	async def on_gain_focus(self):
-		pass
+		count = 0
+		for subreddit in sorted(self.reddit_instance.user.subreddits(), key=lambda subreddit: subreddit.display_name):
+			count = self.subreddit_list.InsertItem(count, subreddit.display_name)+1
 
 	async def on_lost_focus(self):
 		pass

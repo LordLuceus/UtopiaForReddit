@@ -78,8 +78,7 @@ class MainFrame(wx.Frame):
 		AsyncBind(wx.EVT_NOTEBOOK_PAGE_CHANGING, self.on_notebook_page_changing, self)
 		
 		self.book.AddPage(main_ui_pages.HomePanel(self.book, self.reddit_instance), "HOME")
-		for subreddit in sorted(self.reddit_instance.user.subreddits(), key=lambda subreddit: subreddit.title):
-			self.book.AddPage(main_ui_pages.SubredditPanel(self.book, self.reddit_instance, subreddit), subreddit.title)
+		self.book.AddPage(main_ui_pages.SubredditsPanel(self.book, self.reddit_instance), "My Subreddits")
 		self.book.AddPage(main_ui_pages.ProfilePanel(self.book, self.reddit_instance), "My Profile")
 		
 		StartCoroutine(self.book.GetPage(0).on_gain_focus(), self)
