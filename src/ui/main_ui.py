@@ -22,6 +22,8 @@ import wx
 import wx.adv
 from wxasync import AsyncBind, StartCoroutine
 
+from reddit import reddit_instance_factory
+
 from ui import account_manager
 from ui import tips
 from ui import preferences
@@ -38,7 +40,8 @@ class CustomIDS:
 class MainFrame(wx.Frame):
 	def __init__(self, username, token):
 		self.username = username
-		self.token = token
+		# exchange the token for a praw reddit instance that is logged in.
+		self.reddit_instance = reddit_instance_factory.new_reddit_instance(token)
 		super().__init__(None, wx.ID_ANY, title=f"UtopiaForReddit ({self.username})", style=wx.MAXIMIZE)
 		
 		# menu

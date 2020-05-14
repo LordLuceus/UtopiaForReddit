@@ -25,18 +25,15 @@ import logging
 
 import praw
 
-from core import variables
+from reddit import reddit_instance_factory
 from reddit import account_manager
-
-def _new_reddit_instance():
-	return praw.Reddit(client_id=variables.reddit_client_id, client_secret=None, redirect_uri='http://localhost:8080', user_agent=variables.reddit_user_agent)
 
 def _get_oauth_url(reddit_instance):
 	return reddit_instance.auth.url(['creddits modcontributors modmail modconfig subscribe structuredstyles vote wikiedit mysubreddits submit modlog modposts modflair save modothers read privatemessages report identity livemanage account modtraffic wikiread edit modwiki modself history flair'], '...', 'permanent')
 
 def authorize_new_reddit_account():
 	logging.info("Starting authorization for new user")
-	reddit_instance = _new_reddit_instance()
+	reddit_instance = reddit_instance_factory.new_reddit_instance()
 	logging.info("Opening authorization url")
 	webbrowser.open(_get_oauth_url(reddit_instance))
 	logging.info("Waiting for response")
